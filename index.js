@@ -1,5 +1,6 @@
 // Advent of code 2020
 
+// FIRST ADVENT
 // 1st
 // find the two entries that sum to 2020 and then multiply those two numbers together
 
@@ -33,4 +34,57 @@ const threeNums = (arr) => {
       }
     }
   }
+};
+
+// SECOND ADVENT
+// input example: `5-6 s: zssmssbsms`
+// 1st
+
+const passwordsOne = (input) => {
+  let count = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    const [min, max] = input[i]
+      .split(/-| /)
+      .splice(0, 2)
+      .map((el) => parseInt(el));
+    // alternative way to turn string to a number
+    // .map((el) => +el);
+
+    const password = input[i].split(":")[1].trim();
+    const letter = input[i].split(/:| /)[1];
+    const nonMatchingLetters = password
+      .split(letter)
+      .filter((num) => num !== "")
+      .join("").length;
+    const numOfLetters = password.length - nonMatchingLetters;
+    if (numOfLetters >= min && numOfLetters <= max) {
+      count++;
+    }
+  }
+  return count;
+};
+
+// 2nd
+
+const passwordsTwo = (input) => {
+  let count = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    const nums = input[i]
+      .split(/-| /)
+      .splice(0, 2)
+      .map((el) => parseInt(el));
+    const indexOne = nums[0] - 1;
+    const indexTwo = nums[1] - 1;
+    const password = input[i].split(":")[1].trim();
+    const letter = input[i].split(/:| /)[1];
+    if (
+      (password[indexOne] === letter && password[indexTwo] !== letter) ||
+      (password[indexTwo] === letter && password[indexOne] !== letter)
+    ) {
+      count++;
+    }
+  }
+  return count;
 };
