@@ -88,3 +88,43 @@ const passwordsTwo = (input) => {
   }
   return count;
 };
+
+// THIRD ADVENT
+//input example: `.#......##..#.....#....#.#.#...`
+// 1st
+
+const tobogganTrajectory = (arr) => {
+  let count = 0;
+  for (let i = 1; i < arr.length; i++) {
+    console.log(arr[i].length);
+    if (arr[i][(i * 3) % 31] === "#") {
+      count++;
+    }
+  }
+  return count;
+};
+
+// 2nd
+
+const tobogganTrajectoryTwo = (arr) => {
+  const slopes = [
+    [1, 1],
+    [3, 1],
+    [5, 1],
+    [7, 1],
+    [1, 2],
+  ];
+
+  const treesOnSlopes = slopes.map((slope) => {
+    const [right, down] = slope;
+    let count = 0;
+
+    for (let i = down; i < arr.length; i += down) {
+      if (arr[i][((i / down) * right) % 31] === "#") {
+        count++;
+      }
+    }
+    return count;
+  });
+  return treesOnSlopes.reduce((acc, curval) => acc * curval);
+};
