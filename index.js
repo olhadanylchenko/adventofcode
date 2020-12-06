@@ -128,3 +128,53 @@ const tobogganTrajectoryTwo = (arr) => {
   });
   return treesOnSlopes.reduce((acc, curval) => acc * curval);
 };
+
+// FOURTH ADVENT
+// input example: `byr:1971
+//                 ecl:hzl pid:112040163
+//                 eyr:2023 iyr:2019
+//                 hcl:#b6652a hgt:167cm`
+
+// 1st
+
+{
+  const readline = require("readline");
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+  });
+
+  rl.on("line", input);
+
+  const passports = [];
+  let passport = {};
+
+  const passportIsValid = (passport) => {
+    const passportKeys = Object.keys(passport);
+    if (
+      passportKeys.length === 8 ||
+      (passportKeys.length === 7 && passportKeys.indexOf("cid") == -1)
+    ) {
+      return true;
+    } else return false;
+  };
+
+  function input(line) {
+    if (line === "0") {
+      console.log(
+        passports.filter((passport) => passportIsValid(passport)).length
+      );
+      process.exit();
+    }
+    if (line === "") {
+      passports.push(passport);
+      passport = {};
+    } else {
+      const pairs = line.split(" ");
+      pairs.forEach((pair) => {
+        const [key, value] = pair.split(":");
+        passport[key] = value;
+      });
+    }
+  }
+}
