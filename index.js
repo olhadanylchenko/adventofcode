@@ -178,3 +178,88 @@ const tobogganTrajectoryTwo = (arr) => {
     }
   }
 }
+
+// 2nd
+
+{
+  const readline = require("readline");
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+  });
+
+  const validBirthYear = (byr) => {
+    return byr.length === 4 && +byr >= 1920 && +byr <= 2002;
+  };
+  const validIssueYear = (iyr) => {
+    return iyr.length === 4 && +iyr >= 2010 && +iyr <= 2020;
+  };
+  const validExpirationYear = (eyr) => {
+    return eyr.length === 4 && +eyr >= 2020 && +eyr <= 2030;
+  };
+  const validHeight = (hgt) => {
+    const heightCm = +hgt.split("cm")[0];
+    const heightIn = +hgt.split("in")[0];
+    return (
+      (hgt.includes("cm") && heightCm >= 150 && heightCm <= 193) ||
+      (hgt.includes("in") && heightIn >= 59 && heightIn <= 76)
+    );
+  };
+
+  const validHairColor = (hcl) => {
+    const r = /^[a-z0-9]+$/;
+    return hcl.slice(0, 1) === "#" && r.test(hcl.slice(1));
+  };
+
+  const validEyeColor = (ecl) => {
+    const eyeColors = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"];
+    return eyeColors.some((color) => color === ecl);
+  };
+
+  const validPassportId = (pid) => {
+    const r = /^[0-9]+$/;
+    return r.test(pid) && pid.length === 9;
+  };
+
+  const passportIsValid = (passport) => {
+    const passportKeys = Object.keys(passport);
+    if (
+      passportKeys.length === 8 ||
+      (passportKeys.length === 7 && passportKeys.indexOf("cid") == -1)
+    ) {
+      return (
+        validBirthYear(passport.byr) &&
+        validIssueYear(passport.iyr) &&
+        validExpirationYear(passport.eyr) &&
+        validHeight(passport.hgt) &&
+        validHairColor(passport.hcl) &&
+        validEyeColor(passport.ecl) &&
+        validPassportId(passport.pid)
+      );
+    } else return false;
+  };
+
+  rl.on("line", input);
+
+  const passports = [];
+  let passport = {};
+
+  function input(line) {
+    if (line === "0") {
+      console.log(
+        passports.filter((passport) => passportIsValid(passport)).length
+      );
+      process.exit();
+    }
+    if (line === "") {
+      passports.push(passport);
+      passport = {};
+    } else {
+      const pairs = line.split(" ");
+      pairs.forEach((pair) => {
+        const [key, value] = pair.split(":");
+        passport[key] = value;
+      });
+    }
+  }
+}
