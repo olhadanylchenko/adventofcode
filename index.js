@@ -263,3 +263,53 @@ const tobogganTrajectoryTwo = (arr) => {
     }
   }
 }
+
+// FOURTH ADVENT
+// input example: `BBFFBBFRLL`
+
+// 1st
+
+{
+  const readline = require("readline");
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+  });
+
+  rl.on("line", input);
+
+  const ids = [];
+
+  function input(line) {
+    if (line === "0") {
+      console.log(Math.max(...ids));
+    } else {
+      findSeat(line);
+    }
+  }
+
+  const findSeat = (ticket) => {
+    ticket = ticket.split("");
+    let max = 127;
+    let min = 0;
+    let minColumn = 0;
+    let maxColumn = 7;
+    ticket.forEach((letter) => {
+      switch (letter) {
+        case "F":
+          max = Math.floor((min + max) / 2);
+          break;
+        case "B":
+          min = Math.round((min + max) / 2);
+          break;
+        case "L":
+          maxColumn = Math.floor((minColumn + maxColumn) / 2);
+          break;
+        case "R":
+          minColumn = Math.round((minColumn + maxColumn) / 2);
+          break;
+      }
+    });
+    ids.push(minColumn + max * 8);
+  };
+}
