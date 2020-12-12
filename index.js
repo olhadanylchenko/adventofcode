@@ -282,7 +282,17 @@ const tobogganTrajectoryTwo = (arr) => {
 
   function input(line) {
     if (line === "0") {
+      // 1st part
       console.log(Math.max(...ids));
+
+      // 2nd part
+      ids.sort((a, b) => a - b);
+      for (let i = 0; i < ids.length; i++) {
+        if (ids[i] - ids[i - 1] === 2) {
+          console.log(ids[i] - 1);
+          break;
+        }
+      }
     } else {
       findSeat(line);
     }
