@@ -323,3 +323,69 @@ const tobogganTrajectoryTwo = (arr) => {
     ids.push(minColumn + max * 8);
   };
 }
+
+// SIXTH ADVENT
+
+// 1st
+// https://adventofcode.com/2020/day/6
+
+{
+  const readline = require("readline");
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+  });
+
+  rl.on("line", input);
+
+  const arr = [];
+  const internalArr = [];
+
+  function input(line) {
+    if (line === "0") {
+      console.log(
+        arr.map((arr) => arr.length).reduce((acc, curval) => acc + curval)
+      );
+    } else if (line === "") {
+      arr.push(Array.from(new Set(internalArr.flat())));
+      internalArr.splice(0);
+    } else {
+      internalArr.push(line.split(""));
+    }
+  }
+}
+
+// 2nd
+// https://adventofcode.com/2020/day/6#part2c
+
+{
+  const readline = require("readline");
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+  });
+
+  rl.on("line", input);
+
+  const arr = [];
+  const internalArr = [];
+
+  function input(line) {
+    if (line === "0") {
+      console.log(
+        arr.map((arr) => arr.length).reduce((acc, curval) => acc + curval)
+      );
+    } else if (line === "") {
+      internalArr;
+      arr.push(
+        internalArr[0].filter((el) =>
+          internalArr.every((array) => array.includes(el))
+        )
+      );
+
+      internalArr.splice(0);
+    } else {
+      internalArr.push(line.split(""));
+    }
+  }
+}
